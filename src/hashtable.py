@@ -55,15 +55,20 @@ class HashTable:
         Fill this in.
         '''
         # TBC
-        if self.value == self.capacity:
-            self.double_size()
-        
-        for idx in range(self.value, index, - 1):
-            self.storage[idx] = self.storage[idx - 1]
-
-        self.storage[index] = value
-        self.count += 1
-        pass
+        index = self._hash(key) % self.capacity
+        if self.storage[index] != None:
+            node = self.storage[index]
+            while node:
+                if node.key == key:
+                    node.value = value
+                    break
+                elif node.next == None:
+                    node.next = LinkedPair(key, value)
+                    break
+                else:
+                    node = node.next
+        else:
+            self.storage[index] = LinkedPair(key, value)
 
 
 
