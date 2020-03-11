@@ -128,7 +128,9 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # self.capacity = self.capacity * 2
+
+
 
 
 
