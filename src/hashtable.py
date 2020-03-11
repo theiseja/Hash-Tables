@@ -80,7 +80,24 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash(key) % self.capacity
+        check = self.storage[index]
+
+        if self.storage[index] == None:
+            return('Key not found')
+        if check.next == None:
+            if check.key == key:
+                check.value = None
+                return
+            else:
+                return('Key not found')
+
+        while check:
+            if check.key == key:
+                check.value = None
+                break
+            check = check.next
+        return('Key not found')
 
 
     def retrieve(self, key):
