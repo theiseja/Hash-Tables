@@ -108,7 +108,17 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash(key) % self.capacity
+        check = self.storage[index]
+
+        res = None
+        while check != None:
+            if check.key == key:
+                res = check.value
+                return(res)
+            else:
+                check = check.next
+        return('Key not found')
 
 
     def resize(self):
