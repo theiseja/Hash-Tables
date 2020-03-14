@@ -128,8 +128,16 @@ class HashTable:
 
         Fill this in.
         '''
-        # self.capacity = self.capacity * 2
-        
+        # double the capcity and copy into new array
+        old_storage = self.storage
+        old_capacity = self.capacity
+        self.capacity = old_capacity * 2
+        self.storage = [None] * self.capacity
+        for i in range(old_capacity):
+            head = old_storage[i]
+            while head != None:
+                self.insert(head.key, head.value)
+                head = head.next
 
 
 
