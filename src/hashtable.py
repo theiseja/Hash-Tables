@@ -54,7 +54,21 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # TBC
+        index = self._hash(key) % self.capacity
+        if self.storage[index] != None:
+            node = self.storage[index]
+            while node:
+                if node.key == key:
+                    node.value = value
+                    break
+                elif node.next == None:
+                    node.next = LinkedPair(key, value)
+                    break
+                else:
+                    node = node.next
+        else:
+            self.storage[index] = LinkedPair(key, value)
 
 
 
@@ -66,7 +80,24 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash(key) % self.capacity
+        check = self.storage[index]
+
+        if self.storage[index] == None:
+            return('Key not found')
+        if check.next == None:
+            if check.key == key:
+                check.value = None
+                return
+            else:
+                return('Key not found')
+
+        while check:
+            if check.key == key:
+                check.value = None
+                break
+            check = check.next
+        return('Key not found')
 
 
     def retrieve(self, key):
@@ -77,7 +108,17 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash(key) % self.capacity
+        check = self.storage[index]
+
+        res = None
+        while check != None:
+            if check.key == key:
+                res = check.value
+                return(res)
+            else:
+                check = check.next
+        return('Key not found')
 
 
     def resize(self):
@@ -87,7 +128,18 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # double the capcity and copy into new array
+        old_storage = self.storage
+        old_capacity = self.capacity
+        self.capacity = old_capacity * 2
+        self.storage = [None] * self.capacity
+        for i in range(old_capacity):
+            head = old_storage[i]
+            while head != None:
+                self.insert(head.key, head.value)
+                head = head.next
+
+
 
 
 
